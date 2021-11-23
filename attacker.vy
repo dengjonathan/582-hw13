@@ -14,7 +14,7 @@ def __init__():
 @internal
 def _attack() -> bool:
     assert self.dao_address != ZERO_ADDRESS
-    dao: DAO
+    dao: DAO = self.dao_address
     
     # TODO: Use the DAO interface to withdraw funds.
     # Make sure you add a "base case" to end the recursion
@@ -28,7 +28,7 @@ def _attack() -> bool:
 def attack(dao_address:address):
     self.dao_address = dao_address
     deposit_amount: uint256 = msg.value   
-    dao: DAO 
+    dao: DAO = self.dao_address
  
     # Attack cannot withdraw more than what exists in the DAO
     if dao_address.balance < msg.value:
