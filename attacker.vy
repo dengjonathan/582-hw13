@@ -3,6 +3,10 @@ interface DAO:
     def withdraw() -> bool: nonpayable
     def userBalances(addr: address) -> uint256: view
 
+event DefaultCall:
+    sender: indexed(address)
+    value: uint256
+
 dao_address: public(address)
 owner_address: public(address)
 attack_counter: public(uint256)
@@ -48,5 +52,5 @@ def __default__():
     # This method gets invoked when ETH is sent to this contract's address (i.e., when "withdraw" is called on the DAO contract)
     
     # TODO: Add code here to complete the recursive call
-    log msg.sender
+    log DefaultCall(msg.value, msg.sender)
     self._attack()
